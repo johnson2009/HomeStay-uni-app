@@ -91,12 +91,38 @@ export const useUserStore = defineStore('user', () => {
   // 初始化
   initUserInfo()
   
+  /**
+   * 设置Token
+   */
+  function setToken(newToken: string) {
+    token.value = newToken
+    uni.setStorageSync('token', newToken)
+  }
+  
+  /**
+   * 设置用户信息
+   */
+  function setUserInfo(user: User | any) {
+    userInfo.value = user
+    uni.setStorageSync('userInfo', JSON.stringify(user))
+  }
+  
+  /**
+   * 退出登录
+   */
+  function logout() {
+    clearLoginInfo()
+  }
+  
   return {
     token,
     userInfo,
     isLoggedIn,
     setLoginInfo,
+    setToken,
+    setUserInfo,
     clearLoginInfo,
+    logout,
     silentLogin,
     initUserInfo
   }

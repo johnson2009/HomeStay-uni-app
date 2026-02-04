@@ -6,9 +6,18 @@ import type { RoomType, RoomPrice } from '@/types'
 /**
  * 获取房型列表
  * @param storeId 门店ID
+ * @param checkIn 入住日期（可选）
+ * @param checkOut 离店日期（可选）
  */
-export function getRoomTypeList(storeId: number | string): Promise<RoomType[]> {
-  return get<RoomType[]>(API.ROOM.TYPE_LIST(storeId))
+export function getRoomTypeList(
+  storeId: number | string, 
+  checkIn?: string, 
+  checkOut?: string
+): Promise<RoomType[]> {
+  const params: Record<string, string> = {}
+  if (checkIn) params.check_in = checkIn
+  if (checkOut) params.check_out = checkOut
+  return get<RoomType[]>(API.ROOM.TYPE_LIST(storeId), params)
 }
 
 /**

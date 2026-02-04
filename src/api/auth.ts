@@ -1,12 +1,7 @@
 // 认证相关API
 import { get, post } from '@/utils/request'
 import { API } from '@/utils/config'
-import type { User } from '@/types'
-
-interface LoginResponse {
-  token: string
-  user: User
-}
+import type { User, LoginResponse } from '@/types'
 
 /**
  * 微信登录

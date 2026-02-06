@@ -4,12 +4,16 @@
 export const BASE_URL = 'http://localhost:8000'  // 开发环境
 // export const BASE_URL = 'https://your-api-domain.com'  // 生产环境
 
+// 是否为开发环境
+export const IS_DEV = process.env.NODE_ENV === 'development' || BASE_URL.includes('localhost')
+
 // API路径
 export const API = {
   // 认证相关
   AUTH: {
     WX_LOGIN: '/api/auth/wx/login',
     WX_PHONE_LOGIN: '/api/auth/wx/phone-login',
+    DEV_LOGIN: '/api/auth/dev/login',  // 开发环境登录
     ME: '/api/auth/me',
     REFRESH: '/api/auth/refresh'
   },

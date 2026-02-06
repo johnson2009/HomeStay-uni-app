@@ -103,5 +103,8 @@ export type DateType = 'checkIn' | 'checkOut'
 export interface LoginResponse {
   access_token: string
   token_type?: string
-  user: User
+  expires_in?: number
+  user_id?: number
+  is_new_user?: boolean
+  user?: User
 }

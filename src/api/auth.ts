@@ -20,6 +20,15 @@ export function wxPhoneLogin(code: string): Promise<LoginResponse> {
 }
 
 /**
+ * 开发环境登录（仅在后端 DEBUG=True 时可用）
+ * @param phone 手机号（可选）
+ * @param nickname 昵称（可选）
+ */
+export function devLogin(phone?: string, nickname?: string): Promise<LoginResponse> {
+  return post<LoginResponse>(API.AUTH.DEV_LOGIN, { phone, nickname })
+}
+
+/**
  * 获取当前用户信息
  */
 export function getCurrentUser(): Promise<User> {

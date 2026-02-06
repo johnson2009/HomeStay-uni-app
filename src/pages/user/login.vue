@@ -65,6 +65,7 @@ import { ref } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { useUserStore } from '@/stores'
 import { authApi } from '@/api'
+import type { LoginResponse } from '@/types'
 
 // Store
 const userStore = useUserStore()
@@ -159,22 +160,26 @@ const onGetPhoneNumber = async (e: any) => {
   }
 }
 
-// H5 模拟登录
+// H5/开发环境登录（调用后端开发登录接口）
 const h5MockLogin = async () => {
   phoneLoginLoading.value = true
   
   try {
-    // 模拟登录，实际项目中应该弹出登录表单
-    const mockUser = {
-      id: 1,
-      nickname: '测试用户',
-      avatar: '',
-      phone: '13800138000'
-    }
+    // 调用后端开发登录接口
+    const result = await authApi.devLogin('13800138000', '测试用户')
     
-    // 模拟 token
-    userStore.setToken('mock_token_' + Date.now())
-    userStore.setUserInfo(mockUser)
+    // 保存登录状态
+    userStore.setToken(result.access_token)
+    if (result.user) {
+      userStore.setUserInfo(result.user)
+    } else {
+      // 如果后端没返回用户信息，设置默认值
+      userStore.setUserInfo({
+        id: result.user_id,
+        nickname: '测试用户',
+        phone: '13800138000'
+      })
+    }
     
     uni.showToast({
       title: '登录成功',

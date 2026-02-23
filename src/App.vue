@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { onLaunch, onShow, onHide } from '@dcloudio/uni-app'
 import { useUserStore } from '@/stores/user'
+import { on } from '@/utils/eventBus'
 
 onLaunch(() => {
   console.log('App Launch')
-  // 尝试静默登录
   const userStore = useUserStore()
+  on('auth:unauthorized', () => userStore.clearLoginInfo())
   userStore.silentLogin()
 })
 

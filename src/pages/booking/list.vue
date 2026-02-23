@@ -84,7 +84,7 @@
 
       <!-- 空状态 -->
       <view class="empty-state" v-else-if="!loading">
-        <image src="/static/images/empty-order.png" mode="aspectFit"/>
+        <image :src="getImageUrl('images/empty-order.png')" mode="aspectFit"/>
         <text>暂无订单记录</text>
         <button class="go-book-btn" @tap="goToIndex">去预订</button>
       </view>
@@ -102,6 +102,7 @@
 import { ref, onMounted } from 'vue'
 import { onShow, onPullDownRefresh } from '@dcloudio/uni-app'
 import { useUserStore } from '@/stores'
+import { getImageUrl } from '@/utils/config'
 import { bookingApi } from '@/api'
 import { daysBetween } from '@/utils/date'
 import { getBookingStatusText, getBookingStatusClass } from '@/utils'

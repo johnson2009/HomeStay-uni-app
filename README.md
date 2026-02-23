@@ -78,12 +78,14 @@ npm run dev:mp-weixin
 
 1. **分包**：非 TabBar 页面（民宿列表/详情、确认订单、订单详情、登录）已配置为分包，主包仅保留首页、订单、我的。
 2. **按需注入**：在 `manifest.json` 的 `mp-weixin` 中已配置 `lazyCodeLoading: "requiredComponents"`。
-3. **图片压缩**：`src/static/images` 下部分图片若超过 200KB，需压缩后再上传：
-   - 先安装依赖：`npm install sharp --save-dev`
-   - 执行：`npm run compress:images`（会尝试将超过 200KB 的图片压到 200KB 以内）
-   - 若仍超限，可手动用 [TinyPNG](https://tinypng.com) 或 [Squoosh](https://squoosh.app) 压缩后替换，再重新构建。
+3. **图片走网络**：大图（logo、banner、默认图等）不再打入包内，改为通过 `getImageUrl()` 从后端静态资源加载（主包瘦身且满足单图小于 200KB）：
+   - HomeStay 后端已挂载 `/static`（见 `HomeStay/app/main.py`），将 `HomeStay-uni-app/src/static/images/` 下的图片复制到 **`HomeStay/static/images/`**，即可通过 `BASE_URL/static/images/xxx.png` 访问。
+   - 小程序端 `config.ts` 中 `IMAGE_BASE_URL = BASE_URL + '/static'`，无需单独接口，**推荐直接访问图片 URL**（方案 2）。
+   - 在微信公众平台将你的 API 域名配置为 **request 合法域名** 和 **downloadFile 合法域名**（与 `BASE_URL` 同域即可）。
+4. **构建后自动删大图**：`npm run build:mp-weixin` 结束后会执行 `strip-mp-weixin-images.js`，删除 `dist/build/mp-weixin/static/images` 下超过 200KB 的文件，避免主包超标。
+5. **主包 JS 瘦身**：`request.ts` 不再引用 `stores/user`，通过 eventBus 通知 App 处理 401，避免主包内打入未使用的 store 代码。
 
-建议流程：`npm run compress:images` → `npm run build:mp-weixin` → 用微信开发者工具打开 `dist/build/mp-weixin` 并上传。
+建议流程：确保 HomeStay 已提供 `/static` 且 `static/images` 下有所需图片 → `npm run build:mp-weixin` → 用微信开发者工具打开 `dist/build/mp-weixin` 并上传。
 
 ### 构建生产版本
 

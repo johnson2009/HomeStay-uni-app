@@ -43,7 +43,7 @@
         >
           <image 
             class="store-cover" 
-            :src="item.cover_image || '/static/images/default-store.png'" 
+            :src="item.cover_image || getImageUrl('images/default-store.png')" 
             mode="aspectFill"
           />
           <view class="store-content">
@@ -108,6 +108,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { onLoad, onPullDownRefresh } from '@dcloudio/uni-app'
 import { useStoreStore, useBookingStore } from '@/stores'
+import { getImageUrl } from '@/utils/config'
 import { getToday, getTomorrow } from '@/utils/date'
 import type { Store } from '@/types'
 

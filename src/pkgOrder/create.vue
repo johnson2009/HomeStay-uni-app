@@ -25,7 +25,7 @@
       <view class="room-info">
         <image 
           class="room-cover" 
-          :src="roomType.cover_image || '/static/images/default-room.png'" 
+          :src="roomType.cover_image || getImageUrl('images/default-room.png')" 
           mode="aspectFill"
         />
         <view class="room-detail">
@@ -120,6 +120,7 @@
 import { ref, computed } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { roomApi, bookingApi } from '@/api'
+import { getImageUrl } from '@/utils/config'
 import { daysBetween, getWeekDay } from '@/utils/date'
 import type { RoomType } from '@/types'
 

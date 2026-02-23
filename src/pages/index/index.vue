@@ -58,7 +58,7 @@
         >
           <image 
             class="store-cover" 
-            :src="item.cover_image || '/static/images/default-store.png'" 
+            :src="item.cover_image || getImageUrl('images/default-store.png')" 
             mode="aspectFill"
           />
           <view class="store-info">
@@ -127,6 +127,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { onPullDownRefresh } from '@dcloudio/uni-app'
 import { useBookingStore, useStoreStore } from '@/stores'
+import { getImageUrl } from '@/utils/config'
 import { generateYears, generateMonths, generateDays, getToday, parseDateString } from '@/utils/date'
 import type { Banner, DateType } from '@/types'
 
@@ -136,8 +137,8 @@ const storeStore = useStoreStore()
 
 // 轮播图数据
 const banners = ref<Banner[]>([
-  { image: '/static/images/banner1.png' },
-  { image: '/static/images/banner2.png' }
+  { image: getImageUrl('images/banner1.png') },
+  { image: getImageUrl('images/banner2.png') }
 ])
 
 // 日期选择器状态

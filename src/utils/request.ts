@@ -1,6 +1,6 @@
-// HTTP请求封装
+// HTTP请求封装（不直接引用 stores，避免主包打入未使用 JS）
 import { BASE_URL } from './config'
-import { useUserStore } from '@/stores/user'
+import { emit } from './eventBus'
 
 interface RequestOptions {
   url: string
@@ -16,13 +16,17 @@ interface ApiResponse<T = any> {
   detail?: string | Array<{ msg: string }>
 }
 
+/** 从 storage 读 token，避免依赖 store */
+function getToken(): string {
+  return uni.getStorageSync('token') || ''
+}
+
 /**
  * 发起HTTP请求
  */
 export function request<T = any>(options: RequestOptions): Promise<T> {
   return new Promise((resolve, reject) => {
-    const userStore = useUserStore()
-    const token = userStore.token
+    const token = getToken()
 
     uni.request({
       url: BASE_URL + options.url,
@@ -50,8 +54,10 @@ export function request<T = any>(options: RequestOptions): Promise<T> {
             reject(data)
           }
         } else if (statusCode === 401) {
-          // 未授权，需要重新登录
-          userStore.clearLoginInfo()
+          // 未授权：发事件由 App 清理 store 并跳转，避免 request 引用 stores（主包瘦身）
+          uni.removeStorageSync('token')
+          uni.removeStorageSync('userInfo')
+          emit('auth:unauthorized')
           uni.showToast({
             title: '请重新登录',
             icon: 'none'

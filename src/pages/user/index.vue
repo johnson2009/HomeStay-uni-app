@@ -3,14 +3,14 @@
     <!-- 用户信息卡片 -->
     <view class="user-card">
       <view class="user-info" v-if="userStore.isLoggedIn">
-        <image class="avatar" :src="userStore.userInfo?.avatar || '/static/images/default-avatar.png'" mode="aspectFill"/>
+        <image class="avatar" :src="userStore.userInfo?.avatar || getImageUrl('images/default-avatar.png')" mode="aspectFill"/>
         <view class="user-detail">
           <text class="nickname">{{ userStore.userInfo?.nickname || '民宿用户' }}</text>
           <text class="phone" v-if="userStore.userInfo?.phone">{{ userStore.userInfo.phone }}</text>
         </view>
       </view>
       <view class="login-prompt" v-else @tap="goToLogin">
-        <image class="avatar" src="/static/images/default-avatar.png" mode="aspectFill"/>
+        <image class="avatar" :src="getImageUrl('images/default-avatar.png')" mode="aspectFill"/>
         <view class="login-text">
           <text class="login-title">点击登录</text>
           <text class="login-hint">登录后享受更多服务</text>
@@ -75,6 +75,7 @@
 import { onMounted } from 'vue'
 import { onShow } from '@dcloudio/uni-app'
 import { useUserStore } from '@/stores'
+import { getImageUrl } from '@/utils/config'
 
 // Store
 const userStore = useUserStore()

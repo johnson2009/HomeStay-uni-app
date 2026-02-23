@@ -15,7 +15,7 @@
           <image :src="img" mode="aspectFill" class="banner-image"/>
         </swiper-item>
         <swiper-item v-if="!store.cover_image && storeImages.length === 0">
-          <image src="/static/images/default-store.png" mode="aspectFill" class="banner-image"/>
+          <image :src="getImageUrl('images/default-store.png')" mode="aspectFill" class="banner-image"/>
         </swiper-item>
       </swiper>
     </view>
@@ -86,7 +86,7 @@
         <view class="room-card card" v-for="item in roomTypes" :key="item.id">
           <image 
             class="room-cover" 
-            :src="item.cover_image || '/static/images/default-room.png'" 
+            :src="item.cover_image || getImageUrl('images/default-room.png')" 
             mode="aspectFill"
           />
           <view class="room-info">
@@ -137,6 +137,7 @@ import { ref, onMounted } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { useUserStore, useBookingStore } from '@/stores'
 import { storeApi, roomApi } from '@/api'
+import { getImageUrl } from '@/utils/config'
 import { getToday, getTomorrow } from '@/utils/date'
 import type { Store, RoomType } from '@/types'
 

@@ -1,7 +1,7 @@
 <template>
   <view class="page">
     <view class="logo-section">
-      <image class="logo" src="/static/images/logo.png" mode="aspectFit"/>
+      <image class="logo" :src="getImageUrl('images/logo.png')" mode="aspectFit"/>
       <text class="app-name">民宿预订</text>
       <text class="app-slogan">发现美好住处</text>
     </view>
@@ -40,6 +40,7 @@ import { ref } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { useUserStore } from '@/stores'
 import { authApi } from '@/api'
+import { getImageUrl } from '@/utils/config'
 
 const userStore = useUserStore()
 const wxLoginLoading = ref(false)

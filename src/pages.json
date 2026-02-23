@@ -6,56 +6,33 @@
     }
   },
   "pages": [
+    { "path": "pages/index/index", "style": { "navigationBarTitleText": "民宿预订", "enablePullDownRefresh": true } },
+    { "path": "pages/booking/list", "style": { "navigationBarTitleText": "我的订单", "enablePullDownRefresh": true } },
+    { "path": "pages/user/index", "style": { "navigationBarTitleText": "我的" } }
+  ],
+  "subPackages": [
     {
-      "path": "pages/index/index",
-      "style": {
-        "navigationBarTitleText": "民宿预订",
-        "enablePullDownRefresh": true
-      }
+      "root": "pages/store",
+      "name": "store",
+      "pages": [
+        { "path": "list", "style": { "navigationBarTitleText": "民宿列表", "enablePullDownRefresh": true } },
+        { "path": "detail", "style": { "navigationBarTitleText": "民宿详情" } }
+      ]
     },
     {
-      "path": "pages/store/list",
-      "style": {
-        "navigationBarTitleText": "民宿列表",
-        "enablePullDownRefresh": true
-      }
+      "root": "pages/booking",
+      "name": "booking",
+      "pages": [
+        { "path": "create", "style": { "navigationBarTitleText": "确认订单" } },
+        { "path": "detail", "style": { "navigationBarTitleText": "订单详情" } }
+      ]
     },
     {
-      "path": "pages/store/detail",
-      "style": {
-        "navigationBarTitleText": "民宿详情"
-      }
-    },
-    {
-      "path": "pages/booking/create",
-      "style": {
-        "navigationBarTitleText": "确认订单"
-      }
-    },
-    {
-      "path": "pages/booking/list",
-      "style": {
-        "navigationBarTitleText": "我的订单",
-        "enablePullDownRefresh": true
-      }
-    },
-    {
-      "path": "pages/booking/detail",
-      "style": {
-        "navigationBarTitleText": "订单详情"
-      }
-    },
-    {
-      "path": "pages/user/index",
-      "style": {
-        "navigationBarTitleText": "我的"
-      }
-    },
-    {
-      "path": "pages/user/login",
-      "style": {
-        "navigationBarTitleText": "登录"
-      }
+      "root": "pages/user",
+      "name": "user",
+      "pages": [
+        { "path": "login", "style": { "navigationBarTitleText": "登录" } }
+      ]
     }
   ],
   "globalStyle": {
@@ -71,24 +48,9 @@
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "首页",
-        "iconPath": "static/icons/home.png",
-        "selectedIconPath": "static/icons/home-active.png"
-      },
-      {
-        "pagePath": "pages/booking/list",
-        "text": "订单",
-        "iconPath": "static/icons/order.png",
-        "selectedIconPath": "static/icons/order-active.png"
-      },
-      {
-        "pagePath": "pages/user/index",
-        "text": "我的",
-        "iconPath": "static/icons/user.png",
-        "selectedIconPath": "static/icons/user-active.png"
-      }
+      { "pagePath": "pages/index/index", "text": "首页", "iconPath": "static/icons/home.png", "selectedIconPath": "static/icons/home-active.png" },
+      { "pagePath": "pages/booking/list", "text": "订单", "iconPath": "static/icons/order.png", "selectedIconPath": "static/icons/order-active.png" },
+      { "pagePath": "pages/user/index", "text": "我的", "iconPath": "static/icons/user.png", "selectedIconPath": "static/icons/user-active.png" }
     ]
   }
 }

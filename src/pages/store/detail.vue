@@ -104,14 +104,14 @@
                 <text class="price-suffix">/晚</text>
               </view>
               <view class="room-availability">
-                <text class="available" v-if="item.available_rooms > 0">剩{{ item.available_rooms }}间</text>
+                <text class="available" v-if="(item.available_rooms ?? 0) > 0">剩{{ item.available_rooms ?? 0 }}间</text>
                 <text class="sold-out" v-else>已满房</text>
               </view>
               <button 
                 class="book-btn"
-                :class="{ disabled: item.available_rooms <= 0 }"
+                :class="{ disabled: (item.available_rooms ?? 0) <= 0 }"
                 @tap="bookRoom(item)"
-                :disabled="item.available_rooms <= 0"
+                :disabled="(item.available_rooms ?? 0) <= 0"
               >
                 预订
               </button>

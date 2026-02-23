@@ -262,13 +262,13 @@ onLoad((options: any) => {
 <style lang="scss" scoped>
 .page {
   padding-bottom: 40rpx;
-  background-color: #f5f5f5;
+  background-color: #f0fdfa;
 }
 
 /* 轮播图 */
 .banner {
   height: 400rpx;
-  
+
   swiper {
     height: 100%;
   }
@@ -284,7 +284,8 @@ onLoad((options: any) => {
   margin: 20rpx 30rpx;
   padding: 30rpx;
   background-color: #fff;
-  border-radius: 16rpx;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
 }
 
 /* 门店信息 */
@@ -311,8 +312,8 @@ onLoad((options: any) => {
   border-radius: 20rpx;
   
   &.tag-success {
-    background-color: rgba(82, 196, 26, 0.1);
-    color: #52c41a;
+    background-color: rgba(13, 148, 136, 0.12);
+    color: #0d9488;
   }
   
   &.tag-danger {
@@ -410,9 +411,9 @@ onLoad((options: any) => {
 
 .contact-btn {
   font-size: 26rpx;
-  color: #4A90D9;
+  color: #0d9488;
   padding: 12rpx 24rpx;
-  background-color: rgba(74, 144, 217, 0.1);
+  background-color: rgba(13, 148, 136, 0.12);
   border-radius: 30rpx;
 }
 
@@ -438,7 +439,7 @@ onLoad((options: any) => {
   width: calc(50% - 10rpx);
   
   .facility-icon {
-    color: #52c41a;
+    color: #0d9488;
     margin-right: 8rpx;
   }
 }
@@ -463,7 +464,7 @@ onLoad((options: any) => {
 
 .date-info {
   font-size: 24rpx;
-  color: #4A90D9;
+  color: #0d9488;
 }
 
 .room-list {
@@ -530,13 +531,13 @@ onLoad((options: any) => {
   
   .price-unit {
     font-size: 24rpx;
-    color: #ff4d4f;
+    color: #0d9488;
   }
-  
+
   .price-value {
     font-size: 40rpx;
     font-weight: 600;
-    color: #ff4d4f;
+    color: #0d9488;
   }
   
   .price-suffix {
@@ -550,7 +551,7 @@ onLoad((options: any) => {
   
   .available {
     font-size: 24rpx;
-    color: #52c41a;
+    color: #0d9488;
   }
   
   .sold-out {
@@ -563,10 +564,10 @@ onLoad((options: any) => {
   padding: 16rpx 40rpx;
   font-size: 28rpx;
   color: #fff;
-  background-color: #4A90D9;
+  background-color: #0d9488;
   border-radius: 40rpx;
   border: none;
-  
+
   &.disabled {
     background-color: #ccc;
   }

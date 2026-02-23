@@ -219,7 +219,7 @@ onLoad((options: any) => {
 <style lang="scss" scoped>
 .page {
   padding-bottom: 180rpx;
-  background-color: #f5f5f5;
+  background-color: #f0fdfa;
 }
 
 /* 状态卡片 */
@@ -228,19 +228,19 @@ onLoad((options: any) => {
   flex-direction: column;
   align-items: center;
   padding: 60rpx 30rpx;
-  background: linear-gradient(135deg, #4A90D9 0%, #5BA0E0 100%);
+  background: linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #14b8a6 100%);
   color: #fff;
-  
+
   &.status-warning {
-    background: linear-gradient(135deg, #faad14 0%, #ffc53d 100%);
+    background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
   }
-  
+
   &.status-success {
-    background: linear-gradient(135deg, #52c41a 0%, #73d13d 100%);
+    background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
   }
-  
+
   &.status-danger {
-    background: linear-gradient(135deg, #ff4d4f 0%, #ff7875 100%);
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
   }
 }
 
@@ -265,7 +265,8 @@ onLoad((options: any) => {
   margin: 20rpx 30rpx;
   padding: 30rpx;
   background-color: #fff;
-  border-radius: 16rpx;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
 }
 
 .section-title {
@@ -320,7 +321,7 @@ onLoad((options: any) => {
     color: #333;
     
     &.highlight {
-      color: #4A90D9;
+      color: #0d9488;
       font-weight: 600;
     }
   }
@@ -357,19 +358,19 @@ onLoad((options: any) => {
     font-weight: 600;
   }
   
-  .total-value {
+.total-value {
     display: flex;
     align-items: baseline;
-    
+
     .currency {
       font-size: 28rpx;
-      color: #ff4d4f;
+      color: #0d9488;
     }
-    
+
     .amount {
       font-size: 40rpx;
       font-weight: 600;
-      color: #ff4d4f;
+      color: #0d9488;
     }
   }
 }
@@ -399,7 +400,7 @@ onLoad((options: any) => {
   
   .copy-btn {
     font-size: 24rpx;
-    color: #4A90D9;
+    color: #0d9488;
     margin-left: 16rpx;
   }
 }
@@ -433,7 +434,7 @@ onLoad((options: any) => {
   }
   
   &.contact-btn {
-    background-color: #4A90D9;
+    background-color: #0d9488;
     color: #fff;
   }
 }

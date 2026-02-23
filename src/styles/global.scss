@@ -1,10 +1,12 @@
-/* 全局样式 */
+/* 全局样式 - 民宿青绿主题 */
+
+@import './variables.scss';
 
 /* 重置样式 */
 page {
-  background-color: #f5f5f5;
-  font-size: 28rpx;
-  color: #333;
+  background-color: $bg-page;
+  font-size: $font-size-md;
+  color: $text-primary;
   line-height: 1.5;
 }
 
@@ -12,28 +14,20 @@ view, text, image {
   box-sizing: border-box;
 }
 
-/* 颜色变量 */
-$primary-color: #4A90D9;
-$success-color: #07c160;
-$warning-color: #ff976a;
-$danger-color: #ee0a24;
-$gray-color: #999;
-$dark-color: #333;
-
 /* 常用颜色类 */
 .text-primary { color: $primary-color; }
 .text-success { color: $success-color; }
 .text-warning { color: $warning-color; }
 .text-danger { color: $danger-color; }
-.text-gray { color: $gray-color; }
-.text-dark { color: $dark-color; }
+.text-gray { color: $text-secondary; }
+.text-dark { color: $text-primary; }
 
 .bg-primary { background-color: $primary-color; }
-.bg-white { background-color: #fff; }
+.bg-white { background-color: $bg-white; }
 
 /* 常用布局 */
 .container {
-  padding: 30rpx;
+  padding: $spacing-lg;
 }
 
 .flex {
@@ -65,13 +59,13 @@ $dark-color: #333;
   flex: 1;
 }
 
-/* 卡片样式 */
+/* 卡片样式 - 白底、圆角、柔和阴影 */
 .card {
-  background-color: #fff;
-  border-radius: 16rpx;
-  padding: 30rpx;
-  margin-bottom: 24rpx;
-  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+  background-color: $bg-white;
+  border-radius: $border-radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-md;
 }
 
 /* 按钮样式 */
@@ -80,22 +74,22 @@ $dark-color: #333;
   align-items: center;
   justify-content: center;
   height: 88rpx;
-  border-radius: 44rpx;
-  font-size: 32rpx;
+  border-radius: $border-radius-round;
+  font-size: $font-size-lg;
   font-weight: 500;
   border: none;
-  
+
   &::after {
     border: none;
   }
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #5BA0E0 0%, #4A90D9 100%);
+  background-color: $primary-color;
   color: #fff;
-  
+
   &:active {
-    opacity: 0.8;
+    opacity: 0.88;
   }
 }
 
@@ -106,14 +100,14 @@ $dark-color: #333;
 }
 
 .btn-disabled {
-  background-color: #ccc;
+  background-color: $text-placeholder;
   color: #fff;
 }
 
 /* 分割线 */
 .divider {
   height: 1rpx;
-  background-color: #eee;
+  background-color: $border-color;
   margin: 20rpx 0;
 }
 
@@ -124,16 +118,16 @@ $dark-color: #333;
   align-items: center;
   justify-content: center;
   padding: 100rpx 0;
-  
+
   image {
     width: 200rpx;
     height: 200rpx;
     margin-bottom: 30rpx;
   }
-  
+
   text {
-    color: $gray-color;
-    font-size: 28rpx;
+    color: $text-secondary;
+    font-size: $font-size-md;
   }
 }
 
@@ -143,25 +137,25 @@ $dark-color: #333;
   align-items: center;
   justify-content: center;
   padding: 40rpx;
-  
+
   text {
-    color: $gray-color;
-    font-size: 26rpx;
+    color: $text-secondary;
+    font-size: $font-size-sm;
   }
 }
 
-/* 价格样式 */
+/* 价格样式 - 主色绿 */
 .price {
-  color: $danger-color;
+  color: $primary-color;
   font-weight: 600;
 }
 
 .price-unit {
-  font-size: 24rpx;
+  font-size: $font-size-sm;
 }
 
 .price-value {
-  font-size: 36rpx;
+  font-size: $font-size-xl;
 }
 
 /* 标签样式 */
@@ -169,51 +163,50 @@ $dark-color: #333;
   display: inline-flex;
   align-items: center;
   padding: 4rpx 12rpx;
-  font-size: 22rpx;
-  border-radius: 6rpx;
+  font-size: $font-size-xs;
+  border-radius: 8rpx;
   margin-right: 12rpx;
 }
 
 .tag-primary {
-  background-color: rgba($primary-color, 0.1);
+  background-color: rgba($primary-color, 0.12);
   color: $primary-color;
 }
 
 .tag-success {
-  background-color: rgba($success-color, 0.1);
+  background-color: rgba($success-color, 0.12);
   color: $success-color;
 }
 
 .tag-warning {
-  background-color: rgba($warning-color, 0.1);
+  background-color: rgba($warning-color, 0.12);
   color: $warning-color;
 }
 
 .tag-danger {
-  background-color: rgba($danger-color, 0.1);
+  background-color: rgba($danger-color, 0.12);
   color: $danger-color;
 }
 
-/* 输入框样式 */
+/* 输入框样式 - 标签在上、底部分割线 */
 .input-group {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   padding: 24rpx 0;
-  border-bottom: 1rpx solid #eee;
-  
+  border-bottom: 1rpx solid $border-color;
+
   .label {
-    width: 180rpx;
-    color: $dark-color;
-    font-size: 28rpx;
+    color: $text-primary;
+    font-size: $font-size-md;
+    margin-bottom: 12rpx;
   }
-  
+
   input {
-    flex: 1;
-    font-size: 28rpx;
+    font-size: $font-size-md;
   }
-  
+
   .placeholder {
-    color: #ccc;
+    color: $text-placeholder;
   }
 }
 

@@ -194,13 +194,13 @@ onMounted(() => {
 <style lang="scss" scoped>
 .page {
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #f0fdfa;
 }
 
 /* 用户卡片 */
 .user-card {
   padding: 60rpx 30rpx;
-  background: linear-gradient(135deg, #4A90D9 0%, #5BA0E0 100%);
+  background: linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #14b8a6 100%);
 }
 
 .user-info,
@@ -253,7 +253,8 @@ onMounted(() => {
   margin: 20rpx 30rpx;
   padding: 30rpx;
   background-color: #fff;
-  border-radius: 16rpx;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
 }
 
 /* 区块头部 */

@@ -251,14 +251,15 @@ onLoad((options: any) => {
 <style lang="scss" scoped>
 .page {
   padding-bottom: 180rpx;
-  background-color: #f5f5f5;
+  background-color: #f0fdfa;
 }
 
 .card {
   margin: 20rpx 30rpx;
   padding: 30rpx;
   background-color: #fff;
-  border-radius: 16rpx;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
 }
 
 .section-title {
@@ -305,8 +306,8 @@ onLoad((options: any) => {
 
 .nights-badge {
   font-size: 24rpx;
-  color: #4A90D9;
-  background-color: rgba(74, 144, 217, 0.1);
+  color: #0d9488;
+  background-color: rgba(13, 148, 136, 0.12);
   padding: 8rpx 20rpx;
   border-radius: 20rpx;
 }
@@ -449,16 +450,16 @@ onLoad((options: any) => {
   .total-value {
     display: flex;
     align-items: baseline;
-    
+
     .currency {
       font-size: 28rpx;
-      color: #ff4d4f;
+      color: #0d9488;
     }
-    
+
     .amount {
       font-size: 40rpx;
       font-weight: 600;
-      color: #ff4d4f;
+      color: #0d9488;
     }
   }
 }
@@ -492,13 +493,13 @@ onLoad((options: any) => {
     
     .currency {
       font-size: 28rpx;
-      color: #ff4d4f;
+      color: #0d9488;
     }
-    
+
     .amount {
       font-size: 44rpx;
       font-weight: 600;
-      color: #ff4d4f;
+      color: #0d9488;
     }
   }
 }
@@ -509,7 +510,7 @@ onLoad((options: any) => {
   line-height: 88rpx;
   font-size: 30rpx;
   color: #fff;
-  background-color: #4A90D9;
+  background-color: #0d9488;
   border-radius: 44rpx;
   border: none;
 }

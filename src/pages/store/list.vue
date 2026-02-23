@@ -232,21 +232,22 @@ onPullDownRefresh(async () => {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #f0fdfa;
 }
 
 /* 搜索栏 */
 .search-bar {
   padding: 20rpx 30rpx;
-  background-color: #fff;
+  background: linear-gradient(135deg, #ccfbf1 0%, #f0fdfa 100%);
 }
 
 .search-input-wrap {
   display: flex;
   align-items: center;
-  background-color: #f5f5f5;
+  background-color: #fff;
   border-radius: 40rpx;
   padding: 16rpx 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(13, 148, 136, 0.06);
 }
 
 .icon-search {
@@ -284,8 +285,8 @@ onPullDownRefresh(async () => {
   color: #666;
   
   &.active {
-    background-color: rgba(74, 144, 217, 0.1);
-    color: #4A90D9;
+    background-color: rgba(13, 148, 136, 0.12);
+    color: #0d9488;
   }
   
   .arrow {
@@ -309,9 +310,9 @@ onPullDownRefresh(async () => {
 .store-card {
   display: flex;
   background-color: #fff;
-  border-radius: 16rpx;
+  border-radius: 24rpx;
   overflow: hidden;
-  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
 }
 
 .store-cover {
@@ -447,7 +448,7 @@ onPullDownRefresh(async () => {
   border-bottom: 1rpx solid #f5f5f5;
   
   &.active {
-    color: #4A90D9;
+    color: #0d9488;
     font-weight: 600;
   }
   

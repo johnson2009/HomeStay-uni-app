@@ -265,7 +265,7 @@ onLoad((options: any) => {
   flex-direction: column;
   align-items: center;
   padding: 0 60rpx;
-  background-color: #fff;
+  background: linear-gradient(180deg, #f0fdfa 0%, #fff 30%);
 }
 
 /* Logo区域 */
@@ -319,13 +319,14 @@ onLoad((options: any) => {
   }
   
   &.wechat-btn {
-    background-color: #07c160;
+    background-color: #0d9488;
     color: #fff;
   }
-  
+
   &.phone-btn {
-    background-color: #f5f5f5;
+    background-color: #f0fdfa;
     color: #333;
+    border: 1rpx solid #ccfbf1;
   }
 }
 
@@ -344,7 +345,7 @@ onLoad((options: any) => {
 
 .tips-link {
   font-size: 24rpx;
-  color: #4A90D9;
+  color: #0d9488;
 }
 
 /* 跳过登录 */

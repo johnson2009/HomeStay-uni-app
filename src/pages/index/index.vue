@@ -256,10 +256,10 @@ onMounted(() => {
   padding-bottom: 120rpx;
 }
 
-/* 搜索栏 */
+/* 搜索栏 - 浅青绿渐变顶栏 */
 .search-bar {
   padding: 20rpx 30rpx;
-  background: linear-gradient(135deg, #5BA0E0 0%, #4A90D9 100%);
+  background: linear-gradient(135deg, #ccfbf1 0%, #99f6e4 40%, #f0fdfa 100%);
 }
 
 .search-input {
@@ -268,6 +268,7 @@ onMounted(() => {
   background-color: #fff;
   border-radius: 40rpx;
   padding: 20rpx 30rpx;
+  box-shadow: 0 2rpx 12rpx rgba(13, 148, 136, 0.06);
 }
 
 .icon-search {
@@ -294,11 +295,13 @@ onMounted(() => {
   height: 100%;
 }
 
-/* 日期选择卡片 */
+/* 日期选择卡片 - 白底圆角阴影 */
 .date-picker-card {
   margin: -40rpx 30rpx 30rpx;
   position: relative;
   z-index: 10;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+  border-radius: 24rpx;
 }
 
 .date-row {
@@ -341,8 +344,8 @@ onMounted(() => {
 
 .nights {
   font-size: 26rpx;
-  color: #4A90D9;
-  background-color: rgba(74, 144, 217, 0.1);
+  color: #0d9488;
+  background-color: rgba(13, 148, 136, 0.12);
   padding: 8rpx 20rpx;
   border-radius: 20rpx;
 }

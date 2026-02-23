@@ -62,12 +62,12 @@
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "民宿预订",
     "navigationBarBackgroundColor": "#FFFFFF",
-    "backgroundColor": "#F5F5F5",
+    "backgroundColor": "#f0fdfa",
     "backgroundTextStyle": "dark"
   },
   "tabBar": {
     "color": "#999999",
-    "selectedColor": "#4A90D9",
+    "selectedColor": "#0d9488",
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [

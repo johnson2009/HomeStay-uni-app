@@ -266,7 +266,7 @@ onPullDownRefresh(async () => {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #f0fdfa;
 }
 
 /* 标签栏 */
@@ -288,9 +288,9 @@ onPullDownRefresh(async () => {
   position: relative;
   
   &.active {
-    color: #4A90D9;
+    color: #0d9488;
     font-weight: 600;
-    
+
     &::after {
       content: '';
       position: absolute;
@@ -299,7 +299,7 @@ onPullDownRefresh(async () => {
       transform: translateX(-50%);
       width: 40rpx;
       height: 4rpx;
-      background-color: #4A90D9;
+      background-color: #0d9488;
       border-radius: 2rpx;
     }
   }
@@ -356,8 +356,8 @@ onPullDownRefresh(async () => {
   }
   
   &.tag-primary {
-    background-color: rgba(74, 144, 217, 0.1);
-    color: #4A90D9;
+    background-color: rgba(13, 148, 136, 0.12);
+    color: #0d9488;
   }
   
   &.tag-default {
@@ -400,7 +400,7 @@ onPullDownRefresh(async () => {
   
   .nights {
     margin-left: 16rpx;
-    color: #4A90D9;
+    color: #0d9488;
   }
 }
 
@@ -451,7 +451,7 @@ onPullDownRefresh(async () => {
   }
   
   &.detail-btn {
-    background-color: #4A90D9;
+    background-color: #0d9488;
     color: #fff;
   }
 }
@@ -481,7 +481,7 @@ onPullDownRefresh(async () => {
   padding: 20rpx 60rpx;
   font-size: 28rpx;
   color: #fff;
-  background-color: #4A90D9;
+  background-color: #0d9488;
   border-radius: 40rpx;
   border: none;
 }

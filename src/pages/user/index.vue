@@ -82,7 +82,7 @@ const userStore = useUserStore()
 // 跳转到登录页
 const goToLogin = () => {
   uni.navigateTo({
-    url: '/pages/user/login'
+    url: '/pkgUser/login'
   })
 }
 

@@ -57,7 +57,7 @@ export function request<T = any>(options: RequestOptions): Promise<T> {
             icon: 'none'
           })
           uni.navigateTo({
-            url: '/pages/user/login'
+            url: '/pkgUser/login'
           })
           reject({ code: 401, message: '未授权' })
         } else if (statusCode === 422) {

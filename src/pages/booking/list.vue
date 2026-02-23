@@ -132,7 +132,7 @@ const getNights = (order: Booking) => {
 const checkLoginAndLoad = () => {
   if (!userStore.isLoggedIn) {
     uni.navigateTo({
-      url: '/pages/user/login?redirect=orders'
+      url: '/pkgUser/login?redirect=orders'
     })
     return
   }
@@ -231,7 +231,7 @@ const cancelOrder = (id: number) => {
 // 跳转到详情
 const goToDetail = (id: number) => {
   uni.navigateTo({
-    url: `/pages/booking/detail?id=${id}`
+    url: `/pkgOrder/detail?id=${id}`
   })
 }
 

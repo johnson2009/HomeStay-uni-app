@@ -117,26 +117,16 @@ import { daysBetween, formatDate } from '@/utils/date'
 import { getBookingStatusText, getBookingStatusClass } from '@/utils'
 import type { Booking } from '@/types'
 
-// 页面数据
 const bookingId = ref<number>(0)
 const booking = ref<Booking | null>(null)
-
-// 计算晚数
 const nights = computed(() => {
   if (!booking.value) return 0
   return daysBetween(booking.value.check_in_date, booking.value.check_out_date)
 })
-
-// 获取状态
 const getStatusText = (status: number) => getBookingStatusText(status)
 const getStatusClass = (status: number) => getBookingStatusClass(status)
+const formatDateTime = (dateStr: string) => formatDate(dateStr, 'YYYY-MM-DD HH:mm')
 
-// 格式化日期时间
-const formatDateTime = (dateStr: string) => {
-  return formatDate(dateStr, 'YYYY-MM-DD HH:mm')
-}
-
-// 加载订单详情
 const loadBookingDetail = async () => {
   uni.showLoading({ title: '加载中...' })
   try {
@@ -144,31 +134,17 @@ const loadBookingDetail = async () => {
     booking.value = data
   } catch (err) {
     console.error('加载订单详情失败', err)
-    uni.showToast({
-      title: '加载失败',
-      icon: 'none'
-    })
+    uni.showToast({ title: '加载失败', icon: 'none' })
   } finally {
     uni.hideLoading()
   }
 }
 
-// 复制订单号
 const copyOrderNo = () => {
   if (!booking.value) return
-  
-  uni.setClipboardData({
-    data: booking.value.order_no,
-    success() {
-      uni.showToast({
-        title: '已复制',
-        icon: 'success'
-      })
-    }
-  })
+  uni.setClipboardData({ data: booking.value.order_no, success() { uni.showToast({ title: '已复制', icon: 'success' }) } })
 }
 
-// 取消订单
 const cancelOrder = () => {
   uni.showModal({
     title: '提示',
@@ -178,38 +154,20 @@ const cancelOrder = () => {
         uni.showLoading({ title: '取消中...' })
         try {
           await bookingApi.cancelBooking(bookingId.value, '用户主动取消')
-          uni.showToast({
-            title: '取消成功',
-            icon: 'success'
-          })
-          // 刷新详情
+          uni.showToast({ title: '取消成功', icon: 'success' })
           loadBookingDetail()
-        } catch (err) {
-          console.error('取消订单失败', err)
-        } finally {
-          uni.hideLoading()
-        }
+        } catch (err) { console.error('取消订单失败', err) }
+        finally { uni.hideLoading() }
       }
     }
   })
 }
 
-// 联系商家
 const contactStore = () => {
-  if (!booking.value?.store_phone) {
-    uni.showToast({
-      title: '暂无联系方式',
-      icon: 'none'
-    })
-    return
-  }
-  
-  uni.makePhoneCall({
-    phoneNumber: booking.value.store_phone
-  })
+  if (!booking.value?.store_phone) { uni.showToast({ title: '暂无联系方式', icon: 'none' }); return }
+  uni.makePhoneCall({ phoneNumber: booking.value.store_phone })
 }
 
-// 页面加载
 onLoad((options: any) => {
   bookingId.value = parseInt(options?.id || '0')
   loadBookingDetail()
@@ -217,239 +175,40 @@ onLoad((options: any) => {
 </script>
 
 <style lang="scss" scoped>
-.page {
-  padding-bottom: 180rpx;
-  background-color: #f0fdfa;
-}
-
-/* 状态卡片 */
-.status-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 60rpx 30rpx;
-  background: linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #14b8a6 100%);
-  color: #fff;
-
-  &.status-warning {
-    background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
-  }
-
-  &.status-success {
-    background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
-  }
-
-  &.status-danger {
-    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
-  }
-}
-
-.status-icon {
-  font-size: 80rpx;
-  margin-bottom: 20rpx;
-}
-
-.status-text {
-  font-size: 36rpx;
-  font-weight: 600;
-  margin-bottom: 12rpx;
-}
-
-.status-hint {
-  font-size: 26rpx;
-  opacity: 0.8;
-}
-
-/* 卡片通用样式 */
-.card {
-  margin: 20rpx 30rpx;
-  padding: 30rpx;
-  background-color: #fff;
-  border-radius: 24rpx;
-  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
-}
-
-.section-title {
-  font-size: 30rpx;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 24rpx;
-}
-
-/* 门店信息 */
-.store-row {
-  display: flex;
-  align-items: center;
-}
-
-.store-info {
-  flex: 1;
-}
-
-.store-name {
-  font-size: 32rpx;
-  font-weight: 600;
-  color: #333;
-  display: block;
-  margin-bottom: 8rpx;
-}
-
-.room-name {
-  font-size: 26rpx;
-  color: #666;
-}
-
-/* 信息网格 */
-.info-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24rpx;
-}
-
-.info-item {
-  display: flex;
-  flex-direction: column;
-  
-  .info-label {
-    font-size: 24rpx;
-    color: #999;
-    margin-bottom: 8rpx;
-  }
-  
-  .info-value {
-    font-size: 28rpx;
-    color: #333;
-    
-    &.highlight {
-      color: #0d9488;
-      font-weight: 600;
-    }
-  }
-}
-
-/* 价格明细 */
-.price-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 16rpx 0;
-  
-  .price-label {
-    font-size: 26rpx;
-    color: #666;
-  }
-  
-  .price-value {
-    font-size: 26rpx;
-    color: #333;
-  }
-}
-
-.price-total {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 20rpx;
-  margin-top: 16rpx;
-  border-top: 1rpx solid #f5f5f5;
-  
-  .total-label {
-    font-size: 28rpx;
-    color: #333;
-    font-weight: 600;
-  }
-  
-.total-value {
-    display: flex;
-    align-items: baseline;
-
-    .currency {
-      font-size: 28rpx;
-      color: #0d9488;
-    }
-
-    .amount {
-      font-size: 40rpx;
-      font-weight: 600;
-      color: #0d9488;
-    }
-  }
-}
-
-/* 订单信息列表 */
-.order-info-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20rpx;
-}
-
-.order-info-item {
-  display: flex;
-  
-  .info-label {
-    width: 160rpx;
-    font-size: 26rpx;
-    color: #999;
-    flex-shrink: 0;
-  }
-  
-  .info-value {
-    flex: 1;
-    font-size: 26rpx;
-    color: #333;
-  }
-  
-  .copy-btn {
-    font-size: 24rpx;
-    color: #0d9488;
-    margin-left: 16rpx;
-  }
-}
-
-/* 底部操作栏 */
-.bottom-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  gap: 20rpx;
-  padding: 20rpx 30rpx;
-  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
-  background-color: #fff;
-  box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.05);
-}
-
-.action-btn {
-  flex: 1;
-  height: 88rpx;
-  line-height: 88rpx;
-  font-size: 30rpx;
-  border-radius: 44rpx;
-  border: none;
-  
-  &.cancel-btn {
-    background-color: #fff;
-    color: #666;
-    border: 1rpx solid #ddd;
-  }
-  
-  &.contact-btn {
-    background-color: #0d9488;
-    color: #fff;
-  }
-}
-
-/* 加载状态 */
-.loading-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  
-  text {
-    color: #999;
-    font-size: 28rpx;
-  }
-}
+.page { padding-bottom: 180rpx; background-color: #f0fdfa; }
+.status-card { display: flex; flex-direction: column; align-items: center; padding: 60rpx 30rpx; background: linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #14b8a6 100%); color: #fff; }
+.status-card.status-warning { background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%); }
+.status-card.status-success { background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%); }
+.status-card.status-danger { background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%); }
+.status-icon { font-size: 80rpx; margin-bottom: 20rpx; }
+.status-text { font-size: 36rpx; font-weight: 600; margin-bottom: 12rpx; }
+.status-hint { font-size: 26rpx; opacity: 0.8; }
+.card { margin: 20rpx 30rpx; padding: 30rpx; background-color: #fff; border-radius: 24rpx; box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06); }
+.section-title { font-size: 30rpx; font-weight: 600; color: #333; margin-bottom: 24rpx; }
+.store-row { display: flex; align-items: center; }
+.store-info { flex: 1; }
+.store-name { font-size: 32rpx; font-weight: 600; color: #333; display: block; margin-bottom: 8rpx; }
+.room-name { font-size: 26rpx; color: #666; }
+.info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24rpx; }
+.info-item .info-label { font-size: 24rpx; color: #999; margin-bottom: 8rpx; }
+.info-item .info-value { font-size: 28rpx; color: #333; }
+.info-item .info-value.highlight { color: #0d9488; font-weight: 600; }
+.price-item { display: flex; justify-content: space-between; padding: 16rpx 0; }
+.price-item .price-label { font-size: 26rpx; color: #666; }
+.price-item .price-value { font-size: 26rpx; color: #333; }
+.price-total { display: flex; justify-content: space-between; align-items: center; padding-top: 20rpx; margin-top: 16rpx; border-top: 1rpx solid #f5f5f5; }
+.price-total .total-label { font-size: 28rpx; color: #333; font-weight: 600; }
+.price-total .total-value { display: flex; align-items: baseline; }
+.price-total .currency { font-size: 28rpx; color: #0d9488; }
+.price-total .amount { font-size: 40rpx; font-weight: 600; color: #0d9488; }
+.order-info-list { display: flex; flex-direction: column; gap: 20rpx; }
+.order-info-item .info-label { width: 160rpx; font-size: 26rpx; color: #999; flex-shrink: 0; }
+.order-info-item .info-value { flex: 1; font-size: 26rpx; color: #333; }
+.order-info-item .copy-btn { font-size: 24rpx; color: #0d9488; margin-left: 16rpx; }
+.bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; display: flex; gap: 20rpx; padding: 20rpx 30rpx; padding-bottom: calc(20rpx + env(safe-area-inset-bottom)); background-color: #fff; box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.05); }
+.action-btn { flex: 1; height: 88rpx; line-height: 88rpx; font-size: 30rpx; border-radius: 44rpx; border: none; }
+.action-btn.cancel-btn { background-color: #fff; color: #666; border: 1rpx solid #ddd; }
+.action-btn.contact-btn { background-color: #0d9488; color: #fff; }
+.loading-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+.loading-state text { color: #999; font-size: 28rpx; }
 </style>

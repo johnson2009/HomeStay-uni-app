@@ -20,16 +20,16 @@
       ]
     },
     {
-      "root": "pages/booking",
-      "name": "booking",
+      "root": "pkgOrder",
+      "name": "pkgOrder",
       "pages": [
         { "path": "create", "style": { "navigationBarTitleText": "确认订单" } },
         { "path": "detail", "style": { "navigationBarTitleText": "订单详情" } }
       ]
     },
     {
-      "root": "pages/user",
-      "name": "user",
+      "root": "pkgUser",
+      "name": "pkgUser",
       "pages": [
         { "path": "login", "style": { "navigationBarTitleText": "登录" } }
       ]

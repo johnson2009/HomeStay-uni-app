@@ -72,6 +72,19 @@ npm run dev:mp-weixin
 
 然后用微信开发者工具打开 `dist/dev/mp-weixin` 目录。
 
+### 微信小程序上传与包体优化
+
+上传前需满足：主包小于 1.5M、启用按需注入、图片/音频小于 200KB。本项目已做：
+
+1. **分包**：非 TabBar 页面（民宿列表/详情、确认订单、订单详情、登录）已配置为分包，主包仅保留首页、订单、我的。
+2. **按需注入**：在 `manifest.json` 的 `mp-weixin` 中已配置 `lazyCodeLoading: "requiredComponents"`。
+3. **图片压缩**：`src/static/images` 下部分图片若超过 200KB，需压缩后再上传：
+   - 先安装依赖：`npm install sharp --save-dev`
+   - 执行：`npm run compress:images`（会尝试将超过 200KB 的图片压到 200KB 以内）
+   - 若仍超限，可手动用 [TinyPNG](https://tinypng.com) 或 [Squoosh](https://squoosh.app) 压缩后替换，再重新构建。
+
+建议流程：`npm run compress:images` → `npm run build:mp-weixin` → 用微信开发者工具打开 `dist/build/mp-weixin` 并上传。
+
 ### 构建生产版本
 
 ```bash

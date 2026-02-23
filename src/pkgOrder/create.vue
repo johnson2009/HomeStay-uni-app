@@ -184,24 +184,19 @@ const increaseGuest = () => {
 
 // 提交订单
 const submitBooking = async () => {
-  // 验证
   if (!guestName.value.trim()) {
     uni.showToast({ title: '请输入入住人姓名', icon: 'none' })
     return
   }
-  
   if (!guestPhone.value.trim()) {
     uni.showToast({ title: '请输入手机号', icon: 'none' })
     return
   }
-  
   if (!/^1\d{10}$/.test(guestPhone.value)) {
     uni.showToast({ title: '请输入正确的手机号', icon: 'none' })
     return
   }
-  
   submitting.value = true
-  
   try {
     const booking = await bookingApi.createBooking({
       store_id: storeId.value,
@@ -213,305 +208,65 @@ const submitBooking = async () => {
       guest_count: guestCount.value,
       remark: remark.value
     })
-    
-    uni.showToast({
-      title: '预订成功',
-      icon: 'success'
-    })
-    
-    // 跳转到订单详情
+    uni.showToast({ title: '预订成功', icon: 'success' })
     setTimeout(() => {
-      uni.redirectTo({
-        url: `/pages/booking/detail?id=${booking.id}`
-      })
+      uni.redirectTo({ url: `/pkgOrder/detail?id=${booking.id}` })
     }, 1500)
-    
   } catch (err: any) {
     console.error('预订失败', err)
-    uni.showToast({
-      title: err.message || '预订失败，请重试',
-      icon: 'none'
-    })
+    uni.showToast({ title: err.message || '预订失败，请重试', icon: 'none' })
   } finally {
     submitting.value = false
   }
 }
 
-// 页面加载
 onLoad((options: any) => {
   storeId.value = parseInt(options?.storeId || '0')
   roomTypeId.value = parseInt(options?.roomTypeId || '0')
   checkInDate.value = options?.checkIn || ''
   checkOutDate.value = options?.checkOut || ''
-  
   loadRoomType()
 })
 </script>
 
 <style lang="scss" scoped>
-.page {
-  padding-bottom: 180rpx;
-  background-color: #f0fdfa;
-}
-
-.card {
-  margin: 20rpx 30rpx;
-  padding: 30rpx;
-  background-color: #fff;
-  border-radius: 24rpx;
-  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
-}
-
-.section-title {
-  font-size: 30rpx;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 24rpx;
-}
-
-/* 日期信息 */
-.date-row {
-  display: flex;
-  align-items: center;
-}
-
-.date-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  
-  .label {
-    font-size: 24rpx;
-    color: #999;
-    margin-bottom: 8rpx;
-  }
-  
-  .value {
-    font-size: 30rpx;
-    font-weight: 600;
-    color: #333;
-  }
-  
-  .week {
-    font-size: 22rpx;
-    color: #666;
-    margin-top: 4rpx;
-  }
-}
-
-.date-divider {
-  padding: 0 30rpx;
-}
-
-.nights-badge {
-  font-size: 24rpx;
-  color: #0d9488;
-  background-color: rgba(13, 148, 136, 0.12);
-  padding: 8rpx 20rpx;
-  border-radius: 20rpx;
-}
-
-/* 房型信息 */
-.room-info {
-  display: flex;
-}
-
-.room-cover {
-  width: 180rpx;
-  height: 120rpx;
-  border-radius: 8rpx;
-  margin-right: 20rpx;
-}
-
-.room-detail {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.room-name {
-  font-size: 28rpx;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 12rpx;
-}
-
-.room-features {
-  display: flex;
-  gap: 12rpx;
-  flex-wrap: wrap;
-  
-  text {
-    font-size: 22rpx;
-    color: #666;
-    padding: 4rpx 12rpx;
-    background-color: #f5f5f5;
-    border-radius: 4rpx;
-  }
-}
-
-/* 表单 */
-.form-item {
-  display: flex;
-  align-items: center;
-  padding: 24rpx 0;
-  border-bottom: 1rpx solid #f5f5f5;
-  
-  &:last-child {
-    border-bottom: none;
-  }
-}
-
-.form-label {
-  font-size: 28rpx;
-  color: #333;
-  width: 160rpx;
-}
-
-.form-input {
-  flex: 1;
-  font-size: 28rpx;
-  text-align: right;
-}
-
-.form-textarea {
-  width: 100%;
-  height: 160rpx;
-  font-size: 28rpx;
-  padding: 16rpx;
-  background-color: #f5f5f5;
-  border-radius: 8rpx;
-  box-sizing: border-box;
-}
-
-/* 步进器 */
-.stepper {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-}
-
-.stepper-btn {
-  width: 56rpx;
-  height: 56rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f5f5f5;
-  border-radius: 8rpx;
-  font-size: 32rpx;
-  color: #333;
-  
-  &.disabled {
-    color: #ccc;
-  }
-}
-
-.stepper-value {
-  width: 80rpx;
-  text-align: center;
-  font-size: 28rpx;
-  color: #333;
-}
-
-/* 价格明细 */
-.price-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 16rpx 0;
-  
-  .price-label {
-    font-size: 26rpx;
-    color: #666;
-  }
-  
-  .price-value {
-    font-size: 26rpx;
-    color: #333;
-  }
-}
-
-.price-total {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 20rpx;
-  margin-top: 16rpx;
-  border-top: 1rpx solid #f5f5f5;
-  
-  .total-label {
-    font-size: 28rpx;
-    color: #333;
-    font-weight: 600;
-  }
-  
-  .total-value {
-    display: flex;
-    align-items: baseline;
-
-    .currency {
-      font-size: 28rpx;
-      color: #0d9488;
-    }
-
-    .amount {
-      font-size: 40rpx;
-      font-weight: 600;
-      color: #0d9488;
-    }
-  }
-}
-
-/* 底部栏 */
-.bottom-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  padding: 20rpx 30rpx;
-  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
-  background-color: #fff;
-  box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.05);
-}
-
-.bottom-price {
-  flex: 1;
-  
-  .bottom-label {
-    font-size: 24rpx;
-    color: #999;
-    margin-right: 8rpx;
-  }
-  
-  .bottom-amount {
-    display: inline-flex;
-    align-items: baseline;
-    
-    .currency {
-      font-size: 28rpx;
-      color: #0d9488;
-    }
-
-    .amount {
-      font-size: 44rpx;
-      font-weight: 600;
-      color: #0d9488;
-    }
-  }
-}
-
-.submit-btn {
-  padding: 0 60rpx;
-  height: 88rpx;
-  line-height: 88rpx;
-  font-size: 30rpx;
-  color: #fff;
-  background-color: #0d9488;
-  border-radius: 44rpx;
-  border: none;
-}
+.page { padding-bottom: 180rpx; background-color: #f0fdfa; }
+.card { margin: 20rpx 30rpx; padding: 30rpx; background-color: #fff; border-radius: 24rpx; box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06); }
+.section-title { font-size: 30rpx; font-weight: 600; color: #333; margin-bottom: 24rpx; }
+.date-row { display: flex; align-items: center; }
+.date-item { flex: 1; display: flex; flex-direction: column; align-items: center; }
+.date-item .label { font-size: 24rpx; color: #999; margin-bottom: 8rpx; }
+.date-item .value { font-size: 30rpx; font-weight: 600; color: #333; }
+.date-item .week { font-size: 22rpx; color: #666; margin-top: 4rpx; }
+.date-divider { padding: 0 30rpx; }
+.nights-badge { font-size: 24rpx; color: #0d9488; background-color: rgba(13, 148, 136, 0.12); padding: 8rpx 20rpx; border-radius: 20rpx; }
+.room-info { display: flex; }
+.room-cover { width: 180rpx; height: 120rpx; border-radius: 8rpx; margin-right: 20rpx; }
+.room-detail { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.room-name { font-size: 28rpx; font-weight: 600; color: #333; margin-bottom: 12rpx; }
+.room-features { display: flex; gap: 12rpx; flex-wrap: wrap; }
+.room-features text { font-size: 22rpx; color: #666; padding: 4rpx 12rpx; background-color: #f5f5f5; border-radius: 4rpx; }
+.form-item { display: flex; align-items: center; padding: 24rpx 0; border-bottom: 1rpx solid #f5f5f5; }
+.form-item:last-child { border-bottom: none; }
+.form-label { font-size: 28rpx; color: #333; width: 160rpx; }
+.form-input { flex: 1; font-size: 28rpx; text-align: right; }
+.form-textarea { width: 100%; height: 160rpx; font-size: 28rpx; padding: 16rpx; background-color: #f5f5f5; border-radius: 8rpx; box-sizing: border-box; }
+.stepper { display: flex; align-items: center; margin-left: auto; }
+.stepper-btn { width: 56rpx; height: 56rpx; display: flex; align-items: center; justify-content: center; background-color: #f5f5f5; border-radius: 8rpx; font-size: 32rpx; color: #333; }
+.stepper-btn.disabled { color: #ccc; }
+.stepper-value { width: 80rpx; text-align: center; font-size: 28rpx; color: #333; }
+.price-row { display: flex; justify-content: space-between; padding: 16rpx 0; }
+.price-row .price-label { font-size: 26rpx; color: #666; }
+.price-row .price-value { font-size: 26rpx; color: #333; }
+.price-total { display: flex; justify-content: space-between; align-items: center; padding-top: 20rpx; margin-top: 16rpx; border-top: 1rpx solid #f5f5f5; }
+.price-total .total-label { font-size: 28rpx; color: #333; font-weight: 600; }
+.price-total .total-value { display: flex; align-items: baseline; }
+.price-total .currency { font-size: 28rpx; color: #0d9488; }
+.price-total .amount { font-size: 40rpx; font-weight: 600; color: #0d9488; }
+.bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; display: flex; align-items: center; padding: 20rpx 30rpx; padding-bottom: calc(20rpx + env(safe-area-inset-bottom)); background-color: #fff; box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.05); }
+.bottom-price .bottom-label { font-size: 24rpx; color: #999; margin-right: 8rpx; }
+.bottom-amount { display: inline-flex; align-items: baseline; }
+.bottom-amount .currency { font-size: 28rpx; color: #0d9488; }
+.bottom-amount .amount { font-size: 44rpx; font-weight: 600; color: #0d9488; }
+.submit-btn { padding: 0 60rpx; height: 88rpx; line-height: 88rpx; font-size: 30rpx; color: #fff; background-color: #0d9488; border-radius: 44rpx; border: none; }
 </style>

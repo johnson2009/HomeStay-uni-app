@@ -237,14 +237,14 @@ const bookRoom = (room: RoomType) => {
   // 检查登录状态
   if (!userStore.isLoggedIn) {
     uni.navigateTo({
-      url: '/pages/user/login?redirect=booking'
+      url: '/pkgUser/login?redirect=booking'
     })
     return
   }
   
   // 跳转到预订页面
   uni.navigateTo({
-    url: `/pages/booking/create?storeId=${storeId.value}&roomTypeId=${room.id}&checkIn=${checkInDate.value}&checkOut=${checkOutDate.value}`
+    url: `/pkgOrder/create?storeId=${storeId.value}&roomTypeId=${room.id}&checkIn=${checkInDate.value}&checkOut=${checkOutDate.value}`
   })
 }
 

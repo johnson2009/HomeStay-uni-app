@@ -19,35 +19,34 @@ export function getImageUrl(path: string): string {
 // 是否为开发环境
 export const IS_DEV = process.env.NODE_ENV === 'development' || BASE_URL.includes('localhost')
 
-// API路径
+// API 路径（与 HomeStay 后端 app/main.py 的 API_PREFIX + app/api 路由一致，默认 /api/v1）
+const API_PREFIX = '/api/v1'
+
 export const API = {
-  // 认证相关
+  // 认证相关 -> HomeStay app/api/auth.py
   AUTH: {
-    WX_LOGIN: '/api/auth/wx/login',
-    WX_PHONE_LOGIN: '/api/auth/wx/phone-login',
-    DEV_LOGIN: '/api/auth/dev/login',  // 开发环境登录
-    ME: '/api/auth/me',
-    REFRESH: '/api/auth/refresh'
+    WX_LOGIN: `${API_PREFIX}/auth/wx/login`,
+    WX_PHONE_LOGIN: `${API_PREFIX}/auth/wx/phone-login`,
+    DEV_LOGIN: `${API_PREFIX}/auth/dev/login`,  // 开发环境登录
+    ME: `${API_PREFIX}/auth/me`,
+    REFRESH: `${API_PREFIX}/auth/refresh`
   },
-  
-  // 门店相关
+  // 门店相关 -> app/api/store.py
   STORE: {
-    LIST: '/api/stores/list',
-    DETAIL: (id: number | string) => `/api/stores/${id}/detail`
+    LIST: `${API_PREFIX}/stores/list`,
+    DETAIL: (id: number | string) => `${API_PREFIX}/stores/${id}/detail`
   },
-  
-  // 房间相关
+  // 房间相关 -> app/api/room.py
   ROOM: {
-    TYPE_LIST: (storeId: number | string) => `/api/rooms/types/list/${storeId}`,
-    PRICES: (roomTypeId: number | string) => `/api/rooms/prices/${roomTypeId}`,
-    AVAILABILITY: '/api/rooms/availability'
+    TYPE_LIST: (storeId: number | string) => `${API_PREFIX}/rooms/types/list/${storeId}`,
+    PRICES: (roomTypeId: number | string) => `${API_PREFIX}/rooms/prices/${roomTypeId}`,
+    AVAILABILITY: `${API_PREFIX}/rooms/availability`
   },
-  
-  // 预订相关
+  // 预订相关 -> app/api/booking.py
   BOOKING: {
-    CREATE: '/api/bookings',
-    MY_LIST: '/api/bookings/my',
-    MY_DETAIL: (id: number | string) => `/api/bookings/my/${id}`,
-    CANCEL: (id: number | string) => `/api/bookings/my/${id}/cancel`
+    CREATE: `${API_PREFIX}/bookings`,
+    MY_LIST: `${API_PREFIX}/bookings/my`,
+    MY_DETAIL: (id: number | string) => `${API_PREFIX}/bookings/my/${id}`,
+    CANCEL: (id: number | string) => `${API_PREFIX}/bookings/my/${id}/cancel`
   }
 }

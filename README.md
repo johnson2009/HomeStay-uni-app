@@ -117,15 +117,55 @@ npm run build:mp-weixin
 
 ## API配置
 
-修改 `src/utils/config.ts` 中的 `BASE_URL` 为你的后端API地址：
+修改 `src/utils/config.ts` 中的 `BASE_URL` 为你的后端 API 地址：
 
 ```typescript
 export const BASE_URL = 'http://localhost:8000'  // 开发环境
-// export const BASE_URL = 'https://your-api-domain.com'  // 生产环境
+// export const BASE_URL = 'https://api.yourdomain.com'  // 生产环境：上传前务必改为此并重新构建
 ```
+
+**上传小程序前**：必须把 `BASE_URL` 改成生产环境 HTTPS 地址并执行 `npm run build:mp-weixin` 再上传，否则真机请求会连到 localhost 导致网络错误。
+
+---
+
+## 小程序上传后报「网络连接错误」？
+
+上传后真机或体验版报网络错误，通常是**未在微信后台配置服务器域名**或 **BASE_URL 仍是开发地址**。按下面检查。
+
+### 1. 微信公众平台配置服务器域名
+
+1. 登录 [微信公众平台](https://mp.weixin.qq.com/) → 进入你的小程序
+2. 左侧 **开发** → **开发管理** → **开发设置**
+3. 找到 **服务器域名**，点击「修改」
+4. 在 **request 合法域名** 中新增一条：填你的 API 域名（**不要**带 `https://` 和路径、端口）
+   - 例如 API 地址是 `https://api.yourdomain.com`，就填：`api.yourdomain.com`
+5. 若小程序会通过接口下载图片（本项目图片走 `BASE_URL/static`，与 API 同域），同一域名已用于 request 即可；若单独配了下载地址，再在 **downloadFile 合法域名** 里加上同一域名
+6. 保存后生效（有时需等几分钟），**一个月内最多修改 5 次**，请确认再提交
+
+要求：
+
+- 必须是 **HTTPS**，不支持 HTTP、IP、localhost
+- 域名需已 **ICP 备案**
+- 不能写端口（如 `api.xxx.com:443` 不要写）
+
+### 2. 确认上传的包用的是生产 API 地址
+
+若 `config.ts` 里仍是 `http://localhost:8000`，上传后请求会发到用户手机本机，必然失败。请：
+
+1. 在 `src/utils/config.ts` 中把 `BASE_URL` 改为生产环境地址（如 `https://api.yourdomain.com`）
+2. 重新执行 `npm run build:mp-weixin`
+3. 用微信开发者工具打开 `dist/build/mp-weixin` 再上传
+
+### 3. 其他可能原因
+
+- **证书问题**：微信要求 TLS 1.2+，且证书链完整、非自签名
+- **备案**：域名未备案会无法通过微信校验
+- **刚改域名**：保存后稍等再试，或重新打开小程序
+
+---
 
 ## 注意事项
 
 1. 微信小程序需要在 `src/manifest.json` 中配置正确的 AppID
-2. 确保后端API服务已启动且可访问
-3. 开发时注意跨域问题的处理
+2. 确保后端 API 服务已启动且可访问；生产环境需 HTTPS + 已备案域名
+3. 开发时在微信开发者工具可勾选「不校验合法域名」调试；上传/真机必须配置合法域名

@@ -31,7 +31,8 @@
       "root": "pkgUser",
       "name": "pkgUser",
       "pages": [
-        { "path": "login", "style": { "navigationBarTitleText": "登录" } }
+        { "path": "login", "style": { "navigationBarTitleText": "登录", "navigationBarBackgroundColor": "#00000000", "navigationStyle": "custom" } },
+        { "path": "phone-login", "style": { "navigationBarTitleText": "手机号登录" } }
       ]
     }
   ],
